@@ -13,3 +13,28 @@ data = {
     'تاریخ فروش': ['1405/07/05', '1405/07/10', '1405/07/15', '1405/07/20', '1405/07/25'],
     'شهر فروش': ['اصفهان', 'تهران', 'شیراز', 'اصفهان', 'تبریز']
 }
+
+df = pd.DataFrame(data)
+
+df['مجموع فروش'] = df['قیمت فروش'] * (1 - df['درصد تخفیف'] / 100) * df['تعداد فروش']
+
+print(df)
+
+total_sales = df['مجموع فروش'].sum()
+print("مجموع فروش ماه:", total_sales)
+
+product_sales = df.groupby('نام محصول')['مجموع فروش'].sum()
+print("مجموع فروش هر محصول:")
+print(product_sales)
+
+best_product = df.loc[df['تعداد فروش'].idxmax()]
+print("پر فروش ترین محصول:", best_product['نام محصول'])
+
+worst_product = df.loc[df['تعداد فروش'].idxmin()]
+print("کم فروش ترین محصول:", worst_product['نام محصول'])
+
+plt.bar(df['نام محصول'], df['تعداد فروش'])
+plt.title("Product Sales")
+plt.xlabel("Product")
+plt.ylabel("Number of Sales")
+plt.show()
