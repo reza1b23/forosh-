@@ -47,3 +47,15 @@ plt.title("Product Sales Percentage")
 plt.show()
 
 df['ماه'] = df['تاریخ فروش'].str.split('/').str[1]
+daily_sales = df.groupby('تاریخ فروش')['مجموع فروش'].sum()
+
+monthly_average = daily_sales.groupby(
+    df.groupby('تاریخ فروش')['ماه'].first()
+).mean()
+
+plt.plot(monthly_average.index, monthly_average.values, marker="o")
+plt.title("Monthly Average Sales")
+plt.xlabel("Month")
+plt.ylabel("Average Sales")
+plt.grid(True)
+plt.show()
