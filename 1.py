@@ -38,3 +38,12 @@ plt.title("Product Sales")
 plt.xlabel("Product")
 plt.ylabel("Number of Sales")
 plt.show()
+plt.pie(
+    df['تعداد فروش'],
+    labels=df['نام محصول'],
+    autopct="%1.1f%%"
+)
+plt.title("Product Sales Percentage")
+plt.show()
+
+df['ماه'] = df['تاریخ فروش'].str.split('/').str[1]
